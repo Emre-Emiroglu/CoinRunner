@@ -17,10 +17,13 @@ namespace DevShirme.PlayerModule
         }
         public override void Execute(Vector2 input)
         {
-            if (input.sqrMagnitude > 0.1)
+            if (input.sqrMagnitude > 0f)
             {
-                rotY = Mathf.Atan2(input.x, input.y) * Mathf.Rad2Deg;
-                transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(new Vector3(0f, rotY, 0f)), Time.deltaTime * settings.RotationSpeed);
+                rotY += input.x * settings.RotationSpeed;
+                rotY = Mathf.Clamp(rotY, settings.MinYRot, settings.MaxYRot);
+
+                transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(new Vector3(0f, rotY, 0f)), Time.deltaTime * settings.RotationSmoothFactor);
+                Debug.Log(rotY);
             }
         }
         #endregion

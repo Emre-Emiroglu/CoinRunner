@@ -46,7 +46,14 @@ public class InputController
         }
     }
 
-    public Vector2 Value
+    public Vector2 OutputRaw
+    {
+        get
+        {
+            return outputRaw;
+        }
+    }
+    public Vector2 OutputNormal
     {
         get
         {

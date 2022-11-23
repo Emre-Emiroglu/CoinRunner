@@ -22,10 +22,12 @@ namespace DevShirme.PlayerModule
 
             inputController = new InputController();
             inputController.Behavior = InputBehavior.Clamped;
-            inputController.ClampDistance = 80;
+            inputController.ClampDistance = 10;
             inputController.Lerp = true;
-            inputController.LerpSpeed = 0.1f;
-            inputController.Sensitivity = 1f;
+            inputController.LerpSpeed = .1f;
+            inputController.Sensitivity = .1f;
+
+            isActive = true;
         }
         public override void GameStart()
         {
@@ -45,7 +47,7 @@ namespace DevShirme.PlayerModule
         #endregion
 
         #region Updates
-        private void MovementSetup()
+        private void agentUpdate()
         {
             if (isActive)
             {
@@ -53,12 +55,13 @@ namespace DevShirme.PlayerModule
                 inputDir.x = inputController.DeltaPos.x * Time.deltaTime;
                 inputDir.y = 0f;
 
+                agent.Rotation(inputDir);
                 agent.Movement(inputDir);
             }
         }
         private void Update()
         {
-            MovementSetup();
+            agentUpdate();
         }
         #endregion
     }
