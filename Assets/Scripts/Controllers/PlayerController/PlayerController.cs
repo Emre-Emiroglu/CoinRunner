@@ -27,6 +27,21 @@ namespace DevShirme.PlayerModule
             inputController.LerpSpeed = 0.1f;
             inputController.Sensitivity = 1f;
         }
+        public override void GameStart()
+        {
+        }
+        public override void Reload()
+        {
+        }
+        public override void GameOver()
+        {
+        }
+        public override void GameFail()
+        {
+        }
+        public override void GameSuccess()
+        {
+        }
         #endregion
 
         #region Updates

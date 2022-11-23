@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace DevShirme.UIModule
 {
-    public class UIManager : DevShirmeManager
+    public class UIController : DevShirmeController
     {
         #region Fields
         [Header("Module Fields")]
@@ -20,6 +20,21 @@ namespace DevShirme.UIModule
                 panels[i].Initialize(panels[i].gameObject);
             }
             panels[0].Show();
+        }
+        public override void GameStart()
+        {
+        }
+        public override void Reload()
+        {
+        }
+        public override void GameOver()
+        {
+        }
+        public override void GameFail()
+        {
+        }
+        public override void GameSuccess()
+        {
         }
         #endregion
 

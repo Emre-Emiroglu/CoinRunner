@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace DevShirme.Core
 {
-    public class GameManager : DevShirmeManager
+    public class GameManager : DevShirmeManager, IGameCycle
     {
         #region Fields
         [Header("Gameplay Controllers")]
@@ -18,6 +18,21 @@ namespace DevShirme.Core
             {
                 controllers[i].Initialize();
             }
+        }
+        public void GameStart()
+        {
+        }
+        public void Reload()
+        {
+        }
+        public void GameOver()
+        {
+        }
+        public void GameFail()
+        {
+        }
+        public void GameSuccess()
+        {
         }
         #endregion
     }
