@@ -51,24 +51,14 @@ namespace DevShirme.PlayerModule
             {
                 inputController.Update();
                 inputDir.x = inputController.DeltaPos.x * Time.deltaTime;
-                inputDir.y = inputController.DeltaPos.y * Time.deltaTime;
+                inputDir.y = 0f;
 
                 agent.Movement(inputDir);
             }
         }
         private void Update()
         {
-            if (((PlayerSettings)settings).MovementType == Enums.MovementType.Transform)
-            {
-                MovementSetup();
-            }
-        }
-        private void FixedUpdate()
-        {
-            if (((PlayerSettings)settings).MovementType == Enums.MovementType.Rigidbody)
-            {
-                MovementSetup();
-            }
+            MovementSetup();
         }
         #endregion
     }

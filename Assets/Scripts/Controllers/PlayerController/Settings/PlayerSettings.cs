@@ -9,13 +9,11 @@ namespace DevShirme.PlayerModule
     public class PlayerSettings : DevSettings
     {
         #region Fields
-        [SerializeField] private Enums.MovementType movementType;
         [SerializeField] private float movementSpeed = 10f;
         [SerializeField] private float rotationSpeed = 5f;
         #endregion
 
         #region Getters
-        public Enums.MovementType MovementType => movementType;
         public float MovementSpeed => movementSpeed;
         public float RotationSpeed => rotationSpeed;
         #endregion
