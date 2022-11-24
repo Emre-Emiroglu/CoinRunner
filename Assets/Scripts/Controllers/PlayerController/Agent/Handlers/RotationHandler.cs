@@ -23,7 +23,6 @@ namespace DevShirme.PlayerModule
                 rotY = Mathf.Clamp(rotY, settings.MinYRot, settings.MaxYRot);
 
                 transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(new Vector3(0f, rotY, 0f)), Time.deltaTime * settings.RotationSmoothFactor);
-                Debug.Log(rotY);
             }
         }
         #endregion

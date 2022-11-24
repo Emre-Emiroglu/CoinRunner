@@ -11,7 +11,8 @@ GameObject:
   - component: {fileID: 4236905815218193555}
   - component: {fileID: 964712538519440182}
   - component: {fileID: 3064611278988378108}
-  m_Layer: 0
+  - component: {fileID: 12373402}
+  m_Layer: 3
   m_Name: Coin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -81,6 +82,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &12373402
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3568913350663233065}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 959d282952dc2804d95bdf7619125a13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  axis: {x: 0, y: 0, z: -1}
+  speed: 500
 --- !u!1 &3873421297408827378
 GameObject:
   m_ObjectHideFlags: 0
@@ -206,6 +221,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movementHandler: {fileID: 19234192515202376}
   rotationHandler: {fileID: 3477363520792005901}
+  rotator: {fileID: 12373402}
   rb: {fileID: 3873421297433907496}
 --- !u!114 &19234192515202376
 MonoBehaviour:

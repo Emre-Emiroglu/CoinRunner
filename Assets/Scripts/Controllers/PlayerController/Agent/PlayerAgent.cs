@@ -10,6 +10,7 @@ namespace DevShirme.PlayerModule
         [Header("Handlers")]
         [SerializeField] private MovementHandler movementHandler;
         [SerializeField] private RotationHandler rotationHandler;
+        [SerializeField] private Rotator rotator;
         [Header("Components")]
         [SerializeField] private Rigidbody rb;
         private PlayerSettings playerSettings;
@@ -28,6 +29,7 @@ namespace DevShirme.PlayerModule
         public void Movement(Vector2 input)
         {
             movementHandler.Execute(input);
+            rotator.IsActive = true;
         }
         public void Rotation(Vector2 input)
         {
