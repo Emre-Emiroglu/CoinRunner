@@ -27,7 +27,7 @@ namespace DevShirme.PlayerModule
             inputController.LerpSpeed = .1f;
             inputController.Sensitivity = .1f;
 
-            isActive = true;
+            //isActive = true;
         }
         public override void GameStart()
         {
