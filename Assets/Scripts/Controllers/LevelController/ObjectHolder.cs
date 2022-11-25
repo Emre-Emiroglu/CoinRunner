@@ -23,6 +23,7 @@ public class ObjectHolder : MonoBehaviour
                 break;
             case Enums.GameItemType.Obstacle:
                 spawn(obstacleType.ToString());
+                myObj.transform.eulerAngles = transform.eulerAngles;
                 break;
         }
     }
@@ -33,7 +34,6 @@ public class ObjectHolder : MonoBehaviour
     private void spawn(string objName)
     {
         myObj = ((PoolManager)DevShirmeCore.Instance.GetAManager(Enums.ManagerType.PoolManager)).GetObj(objName, transform.position);
-        myObj.transform.eulerAngles = transform.eulerAngles;
     }
     #endregion
 
