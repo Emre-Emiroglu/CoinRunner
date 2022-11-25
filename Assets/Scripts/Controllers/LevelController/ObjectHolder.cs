@@ -33,6 +33,7 @@ public class ObjectHolder : MonoBehaviour
     private void spawn(string objName)
     {
         myObj = ((PoolManager)DevShirmeCore.Instance.GetAManager(Enums.ManagerType.PoolManager)).GetObj(objName, transform.position);
+        myObj.transform.eulerAngles = transform.eulerAngles;
     }
     #endregion
 
@@ -46,7 +47,15 @@ public class ObjectHolder : MonoBehaviour
                 Gizmos.color = Color.yellow;
                 break;
             case Enums.GameItemType.Obstacle:
-                Gizmos.color = Color.red;
+                switch (obstacleType)
+                {
+                    case Enums.ObstacleType.Axe:
+                        Gizmos.color = Color.red;
+                        break;
+                    case Enums.ObstacleType.Fan:
+                        Gizmos.color = Color.magenta;
+                        break;
+                }
                 break;
         }
         Gizmos.DrawWireSphere(transform.position + Vector3.up * .5f, 1f);

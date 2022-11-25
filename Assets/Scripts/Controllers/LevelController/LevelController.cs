@@ -12,6 +12,7 @@ namespace DevShirme.LevelModule
         #region Fields
         [SerializeField] private List< string> roadNames;
         private List<RoadPart> roadParts;
+        private LevelSettings ls;
         #endregion
 
         #region Getters
@@ -20,7 +21,7 @@ namespace DevShirme.LevelModule
             PoolManager pm = DevShirmeCore.Instance.GetAManager(Enums.ManagerType.PoolManager) as PoolManager;
             roadNames = Utilities.Shuffle(roadNames);
             RoadPart roadPart = (RoadPart)pm.GetObj(roadNames[0], spawnPos);
-            roadPart.SetHolders(true);
+            roadPart.SetHolders(true, ls.DifficultCurve);
             return roadPart;
         }
         #endregion
@@ -29,7 +30,7 @@ namespace DevShirme.LevelModule
         public override void Initialize()
         {
             roadParts = new List<RoadPart>();
-
+            ls = settings as LevelSettings;
             generateRandomLevel();
         }
         public override void GameStart()
@@ -57,7 +58,7 @@ namespace DevShirme.LevelModule
                 for (int i = 0; i < roadParts.Count; i++)
                 {
                     roadParts[i].DespawnObj();
-                    roadParts[i].SetHolders(false);
+                    roadParts[i].SetHolders(false, ls.DifficultCurve);
                 }
                 roadParts.Clear();
             }

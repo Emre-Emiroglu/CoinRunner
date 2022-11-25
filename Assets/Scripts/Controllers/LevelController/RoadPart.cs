@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DevShirme.PoolModule;
 using DevShirme.Utils;
+using DevShirme.Core;
 
 namespace DevShirme.LevelModule
 {
@@ -11,7 +12,8 @@ namespace DevShirme.LevelModule
         #region Fields
         [Header("Componenets")]
         [SerializeField] private Transform attachPos;
-        [SerializeField] private List<ObjectHolder> objectHolders;
+        [SerializeField] private List<ObjectHolder> collectableObjectHolders;
+        [SerializeField] private List<ObjectHolder> obstacleObjectHolders;
         #endregion
 
         #region Getters
@@ -34,19 +36,29 @@ namespace DevShirme.LevelModule
         #endregion
 
         #region Executes
-        public void SetHolders(bool isActive)
+        public void SetHolders(bool isActive, AnimationCurve diffCurve, int level = 1)
         {
-
-            var shuffleList = Utilities.Shuffle(objectHolders);
-            for (int i = 0; i < shuffleList.Count; i++)
+            #region Collectables
+            for (int i = 0; i < collectableObjectHolders.Count; i++)
             {
                 if (isActive)
-                {
-                    objectHolders[i].Activate();
-                }
+                    collectableObjectHolders[i].Activate();
                 else
-                    objectHolders[i].DeActivate();
+                    collectableObjectHolders[i].DeActivate();
             }
+            #endregion
+
+            #region Obstacles
+            var shuffleList = Utilities.Shuffle(obstacleObjectHolders);
+            int count = (int)(shuffleList.Count * diffCurve.Evaluate(level * .01f));
+            for (int i = 0; i < count; i++)
+            {
+                if (isActive)
+                    shuffleList[i].Activate();
+                else
+                    shuffleList[i].DeActivate();
+            }
+            #endregion
         }
         #endregion
     }
