@@ -33,9 +33,8 @@ namespace DevShirme.Utils
         public enum ObstacleType: int
         {
             Axe = 0,
-            Door = 1,
-            Fan = 2,
-            Count = 3
+            Fan = 1,
+            Count = 2
         }
     }
 }

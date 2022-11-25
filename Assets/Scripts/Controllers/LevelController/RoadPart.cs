@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DevShirme.PoolModule;
+using DevShirme.Utils;
 
 namespace DevShirme.LevelModule
 {
@@ -10,7 +11,7 @@ namespace DevShirme.LevelModule
         #region Fields
         [Header("Componenets")]
         [SerializeField] private Transform attachPos;
-        [SerializeField] private ObjectHolder[] holders;
+        [SerializeField] private List<ObjectHolder> objectHolders;
         #endregion
 
         #region Getters
@@ -25,19 +26,26 @@ namespace DevShirme.LevelModule
         public override void SpawnObj(Vector3 pos, bool useRotation, Quaternion rot, bool useScale, Vector3 scale, bool setParent = false, GameObject p = null)
         {
             base.SpawnObj(pos, useRotation, rot, useScale, scale, setParent, p);
-
-            for (int i = 0; i < holders.Length; i++)
-            {
-                holders[i].Activate();
-            }
         }
         public override void DespawnObj()
         {
             base.DespawnObj();
+        }
+        #endregion
 
-            for (int i = 0; i < holders.Length; i++)
+        #region Executes
+        public void SetHolders(bool isActive)
+        {
+
+            var shuffleList = Utilities.Shuffle(objectHolders);
+            for (int i = 0; i < shuffleList.Count; i++)
             {
-                holders[i].DeActivate();
+                if (isActive)
+                {
+                    objectHolders[i].Activate();
+                }
+                else
+                    objectHolders[i].DeActivate();
             }
         }
         #endregion

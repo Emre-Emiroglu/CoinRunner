@@ -20,6 +20,7 @@ namespace DevShirme.LevelModule
             PoolManager pm = DevShirmeCore.Instance.GetAManager(Enums.ManagerType.PoolManager) as PoolManager;
             roadNames = Utilities.Shuffle(roadNames);
             RoadPart roadPart = (RoadPart)pm.GetObj(roadNames[0], spawnPos);
+            roadPart.SetHolders(true);
             return roadPart;
         }
         #endregion
@@ -53,7 +54,11 @@ namespace DevShirme.LevelModule
         {
             if (roadParts.Count > 0)
             {
-                roadParts.ForEach(x => x.DespawnObj());
+                for (int i = 0; i < roadParts.Count; i++)
+                {
+                    roadParts[i].DespawnObj();
+                    roadParts[i].SetHolders(false);
+                }
                 roadParts.Clear();
             }
         }

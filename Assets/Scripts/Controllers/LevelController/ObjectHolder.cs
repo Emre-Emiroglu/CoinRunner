@@ -8,24 +8,23 @@ using DevShirme.PoolModule;
 public class ObjectHolder : MonoBehaviour
 {
     #region Fields
-    private Enums.GameItemType itemType;
-    private Enums.ObstacleType obstacleType;
+    [SerializeField] private Enums.GameItemType itemType;
+    [SerializeField] private Enums.ObstacleType obstacleType;
     private PoolObject myObj;
     #endregion
 
     #region Core
     public void Activate()
     {
-        //switch (itemType)
-        //{
-        //    case Enums.GameItemType.Collectable:
-        //        spawn(itemType.ToString());
-        //        break;
-        //    case Enums.GameItemType.Obstacle:
-        //        obstacleType = (Enums.ObstacleType)Random.Range(0, (int)Enums.ObstacleType.Count);
-        //        spawn(obstacleType.ToString());
-        //        break;
-        //}
+        switch (itemType)
+        {
+            case Enums.GameItemType.Collectable:
+                spawn(itemType.ToString());
+                break;
+            case Enums.GameItemType.Obstacle:
+                spawn(obstacleType.ToString());
+                break;
+        }
     }
     public void DeActivate()
     {
@@ -35,5 +34,23 @@ public class ObjectHolder : MonoBehaviour
     {
         myObj = ((PoolManager)DevShirmeCore.Instance.GetAManager(Enums.ManagerType.PoolManager)).GetObj(objName, transform.position);
     }
+    #endregion
+
+    #region Visualise
+#if UNITY_EDITOR
+    private void OnDrawGizmos()
+    {
+        switch (itemType)
+        {
+            case Enums.GameItemType.Collectable:
+                Gizmos.color = Color.yellow;
+                break;
+            case Enums.GameItemType.Obstacle:
+                Gizmos.color = Color.red;
+                break;
+        }
+        Gizmos.DrawWireSphere(transform.position + Vector3.up * .5f, 1f);
+    }
+#endif
     #endregion
 }
