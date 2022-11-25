@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: LevelSettings
   m_EditorClassIdentifier: 
   minRoadCount: 2
-  maxRoadCount: 50
+  maxRoadCount: 10
   difficultCurve:
     serializedVersion: 2
     m_Curve:
