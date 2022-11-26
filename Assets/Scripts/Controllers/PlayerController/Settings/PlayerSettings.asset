@@ -21,4 +21,4 @@ MonoBehaviour:
     maxYRot: 90
   followData:
     followDist: 0.61
-    followSpeed: 65.31
+    followSpeed: 10
