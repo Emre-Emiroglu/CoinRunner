@@ -5,6 +5,7 @@ using UnityEngine;
 public class Collectable : GameItem
 {
     #region Fields
+    private Transform playerAgent;
     private Transform followPoint;
     private float followSpeed;
     private bool following;
@@ -38,8 +39,9 @@ public class Collectable : GameItem
         base.OnPlayerContact(contactPos);
         SetRotatorActivation(true);
     }
-    public void GetFollowDatas(Transform followPoint, float followSpeed)
+    public void GetFollowDatas(Transform agent, Transform followPoint, float followSpeed)
     {
+        this.playerAgent = agent;
         this.followPoint = followPoint;
         this.followSpeed = followSpeed;
         following = true;
@@ -50,6 +52,7 @@ public class Collectable : GameItem
         {
             Vector3 followPos = followPoint.position;
             transform.position = Vector3.Lerp(transform.position, followPos, followSpeed * Time.deltaTime);
+            transform.rotation = Quaternion.Lerp(transform.rotation, playerAgent.rotation, 10f * Time.deltaTime);
         }
     }
     private void Update()

@@ -80,11 +80,11 @@ namespace DevShirme.PlayerModule
                     collectableCount++;
 
                     Transform followPoint = followPoints[collectableCount - 1].transform;
-                    float followSpeed = playerSettings.FollowData.FollowSpeed - ((collectableCount - 1) * .75f);
-                    followSpeed = followSpeed < .75f ? .75f : followSpeed;
+                    float followSpeed = playerSettings.FollowData.FollowSpeed - ((collectableCount - 1) * .33f);
+                    followSpeed = followSpeed < 1f ? 1f : followSpeed;
 
                     collectable.OnPlayerContact(transform.position);
-                    collectable.GetFollowDatas(followPoint, followSpeed);
+                    collectable.GetFollowDatas(transform, followPoint, followSpeed);
 
                     if (collectableCount % 10 == 0)
                     {
