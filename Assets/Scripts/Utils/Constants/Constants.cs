@@ -4,8 +4,7 @@ using UnityEngine;
 
 namespace DevShirme.Utils
 {
-        public class Constants
+        public static class Constants
         {
-
         }
 }

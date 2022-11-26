@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DevShirme.Helpers;
 
 namespace DevShirme.Core
 {
@@ -21,18 +22,40 @@ namespace DevShirme.Core
         }
         public void GameStart()
         {
+            for (int i = 0; i < controllers.Count; i++)
+            {
+                controllers[i].GameStart();
+            }
         }
         public void Reload()
         {
+            ScoreHandler.Reload();
+
+            for (int i = 0; i < controllers.Count; i++)
+            {
+                controllers[i].Reload();
+            }
         }
         public void GameOver()
         {
+            for (int i = 0; i < controllers.Count; i++)
+            {
+                controllers[i].GameOver();
+            }
         }
         public void GameFail()
         {
+            for (int i = 0; i < controllers.Count; i++)
+            {
+                controllers[i].GameFail();
+            }
         }
         public void GameSuccess()
         {
+            for (int i = 0; i < controllers.Count; i++)
+            {
+                controllers[i].GameSuccess();
+            }
         }
         #endregion
     }

@@ -13,6 +13,10 @@ namespace DevShirme.DataModule
         private PlayerData playerData;
         #endregion
 
+        #region Getters
+        public PlayerData PlayerData => playerData;
+        #endregion
+
         #region Core
         public override void Initialize()
         {

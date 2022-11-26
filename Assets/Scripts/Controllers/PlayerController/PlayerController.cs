@@ -26,23 +26,28 @@ namespace DevShirme.PlayerModule
             inputController.Lerp = true;
             inputController.LerpSpeed = .1f;
             inputController.Sensitivity = .1f;
-
-            isActive = true;
         }
         public override void GameStart()
         {
+            isActive = true;
+            agent.GameStart();
         }
         public override void Reload()
         {
+            agent.Reload();
         }
         public override void GameOver()
         {
+            isActive = false;
+            agent.GameOver();
         }
         public override void GameFail()
         {
+            agent.GameFail();
         }
         public override void GameSuccess()
         {
+            agent.GameSuccess();
         }
         #endregion
 

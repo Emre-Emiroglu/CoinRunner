@@ -2,14 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 using DevShirme.Utils;
+using DevShirme.Helpers;
 using System;
 
 namespace DevShirme.PlayerModule
 {
     public class PlayerAgent : MonoBehaviour
     {
-        public Action<PlayerAgent> OnObstacleContact;
         #region Fields
+        public Action<PlayerAgent> OnObstacleContact;
         [Header("Handlers")]
         [SerializeField] private MovementHandler movementHandler;
         [SerializeField] private RotationHandler rotationHandler;
@@ -32,7 +33,9 @@ namespace DevShirme.PlayerModule
             rotationHandler.Initialize(this.playerSettings);
             collectableCount = 0;
             followPoints = new List<GameObject>();
-            //TODO: StartGame
+        }
+        public void GameStart()
+        {
             createFollowPoints();
         }
         public void Reload()
@@ -43,6 +46,15 @@ namespace DevShirme.PlayerModule
                 Destroy(followPoints[i]);
             }
             followPoints.Clear();
+        }
+        public void GameOver()
+        {
+        }
+        public void GameSuccess()
+        {
+        }
+        public void GameFail()
+        {
         }
         #endregion
 
@@ -91,12 +103,15 @@ namespace DevShirme.PlayerModule
                 {
                     createFollowPoints();
                 }
+
+                ScoreHandler.SetCurrentScore(1);
             }
         }
         private void obstacleContact(Collider other)
         {
             collectableCount = 0;
             OnObstacleContact?.Invoke(this);
+            ScoreHandler.SetCurrentScore(-ScoreHandler.CurrentScore);
         }
         private void OnTriggerEnter(Collider other)
         {

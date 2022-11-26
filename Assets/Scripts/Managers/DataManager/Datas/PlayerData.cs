@@ -7,17 +7,21 @@ namespace DevShirme.DataModule
     public class PlayerData : Data
     {
         #region Fields
+        public int Level;
+        public int Coin;
         #endregion
 
         #region Executes
         public override void LoadData()
         {
-            //PlayerPrefs' gets
-            // Sync to new datas
+            Coin = PlayerPrefs.GetInt("Coin", 0);
+            Level = PlayerPrefs.GetInt("Level", 1);
+            PlayerPrefs.Save();
         }
         public override void SaveData()
         {
-            //PlayerPrefs' sets
+            PlayerPrefs.SetInt("Coin", Coin);
+            PlayerPrefs.Save();
         }
         #endregion
 
