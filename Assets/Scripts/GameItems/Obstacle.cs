@@ -22,9 +22,9 @@ public class Obstacle : GameItem
     #endregion
 
     #region Executes
-    public override void OnPlayerContact()
+    public override void OnPlayerContact(Vector3 contactPos)
     {
-        base.OnPlayerContact();
+        base.OnPlayerContact(contactPos);
     }
     #endregion
 }

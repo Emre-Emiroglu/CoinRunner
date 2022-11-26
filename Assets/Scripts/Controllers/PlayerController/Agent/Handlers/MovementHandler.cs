@@ -7,12 +7,14 @@ namespace DevShirme.PlayerModule
     public class MovementHandler : AgentHandler
     {
         #region Fields
+        private MovementData movementData;
         #endregion
 
         #region Core
         public override void Initialize(PlayerSettings settings)
         {
             base.Initialize(settings);
+            this.movementData = settings.MovementData;
         }
         public override void Execute(Vector2 input)
         {
@@ -23,7 +25,7 @@ namespace DevShirme.PlayerModule
         #region Movements
         private void classicMovement(Vector2 input)
         {
-            transform.position += transform.forward * settings.MovementSpeed * Time.deltaTime;
+            transform.position += transform.forward * movementData.MovementSpeed * Time.deltaTime;
         }
         #endregion
     }

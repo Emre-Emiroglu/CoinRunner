@@ -25,7 +25,7 @@ public class GameItem : PoolObject
     #endregion
 
     #region Executes
-    public virtual void OnPlayerContact() { }
+    public virtual void OnPlayerContact(Vector3 contactPos) { }
     protected void SetRotatorActivation(bool isActive)
     {
         if (rotator != null)

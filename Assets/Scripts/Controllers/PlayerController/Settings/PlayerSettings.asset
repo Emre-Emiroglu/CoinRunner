@@ -12,8 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd3833a947e47c24f922fe75d9d87d91, type: 3}
   m_Name: PlayerSettings
   m_EditorClassIdentifier: 
-  movementSpeed: 3
-  rotationSpeed: 100
-  rotationSmoothFactor: 50
-  minYRot: -90
-  maxYRot: 90
+  movementData:
+    movementSpeed: 4
+  rotationData:
+    rotationSpeed: 100
+    rotationSmoothFactor: 50
+    minYRot: -90
+    maxYRot: 90
+  followData:
+    followDist: 0.61
+    followSpeed: 65.31

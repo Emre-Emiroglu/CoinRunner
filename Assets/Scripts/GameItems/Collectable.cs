@@ -4,6 +4,16 @@ using UnityEngine;
 
 public class Collectable : GameItem
 {
+    #region Fields
+    private Transform followPoint;
+    private float followSpeed;
+    private bool following;
+    #endregion
+
+    #region Getters
+    public bool Following => following;
+    #endregion
+
     #region Core
     public override void initilaze()
     {
@@ -12,22 +22,39 @@ public class Collectable : GameItem
     public override void SpawnObj(Vector3 pos, bool useRotation, Quaternion rot, bool useScale, Vector3 scale, bool setParent = false, GameObject p = null)
     {
         base.SpawnObj(pos, useRotation, rot, useScale, scale, setParent, p);
+        following = false;
     }
     public override void DespawnObj()
     {
         base.DespawnObj();
         SetRotatorActivation(false);
+        following = false;
     }
     #endregion
 
     #region Executes
-    public override void OnPlayerContact()
+    public override void OnPlayerContact(Vector3 contactPos)
     {
-        base.OnPlayerContact();
+        base.OnPlayerContact(contactPos);
         SetRotatorActivation(true);
     }
-    public void Follow()
+    public void GetFollowDatas(Transform followPoint, float followSpeed)
     {
+        this.followPoint = followPoint;
+        this.followSpeed = followSpeed;
+        following = true;
+    }
+    private void follow()
+    {
+        if (following)
+        {
+            Vector3 followPos = followPoint.position;
+            transform.position = Vector3.Lerp(transform.position, followPos, followSpeed * Time.deltaTime);
+        }
+    }
+    private void Update()
+    {
+        follow();
     }
     #endregion
 }

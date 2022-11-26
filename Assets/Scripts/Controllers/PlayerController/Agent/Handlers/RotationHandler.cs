@@ -7,6 +7,7 @@ namespace DevShirme.PlayerModule
     public class RotationHandler : AgentHandler
     {
         #region Fields
+        private RotationData rotationData;
         private float rotY;
         #endregion
 
@@ -14,15 +15,16 @@ namespace DevShirme.PlayerModule
         public override void Initialize(PlayerSettings settings)
         {
             base.Initialize(settings);
+            this.rotationData = settings.RotationData;
         }
         public override void Execute(Vector2 input)
         {
             if (input.sqrMagnitude > 0f)
             {
-                rotY += input.x * settings.RotationSpeed;
-                rotY = Mathf.Clamp(rotY, settings.MinYRot, settings.MaxYRot);
+                rotY += input.x * rotationData.RotationSpeed;
+                rotY = Mathf.Clamp(rotY, rotationData.MinYRot, rotationData.MaxYRot);
 
-                transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(new Vector3(0f, rotY, 0f)), Time.deltaTime * settings.RotationSmoothFactor);
+                transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(new Vector3(0f, rotY, 0f)), Time.deltaTime * rotationData.RotationSmoothFactor);
             }
         }
         #endregion
