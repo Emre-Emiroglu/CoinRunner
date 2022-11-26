@@ -49,14 +49,15 @@ namespace DevShirme.LevelModule
             #endregion
 
             #region Obstacles
-            var shuffleList = Utilities.Shuffle(obstacleObjectHolders);
-            int count = (int)(shuffleList.Count * diffCurve.Evaluate(level * .01f));
-            for (int i = 0; i < count; i++)
+            if (isActive)
             {
-                if (isActive)
-                    shuffleList[i].Activate();
-                else
-                    shuffleList[i].DeActivate();
+                var shuffleList = Utilities.Shuffle(obstacleObjectHolders);
+                int count = (int)(shuffleList.Count * diffCurve.Evaluate(level * .01f));
+                shuffleList.ForEach(x => x.Activate());
+            }
+            else
+            {
+                obstacleObjectHolders.ForEach(x => x.DeActivate());
             }
             #endregion
         }

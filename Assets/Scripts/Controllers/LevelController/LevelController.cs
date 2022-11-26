@@ -16,12 +16,12 @@ namespace DevShirme.LevelModule
         #endregion
 
         #region Getters
-        private RoadPart getRandomRoadPart(Vector3 spawnPos)
+        private RoadPart getRandomRoadPart(Vector3 spawnPos, int level)
         {
             PoolManager pm = DevShirmeCore.Instance.GetAManager(Enums.ManagerType.PoolManager) as PoolManager;
             roadNames = Utilities.Shuffle(roadNames);
             RoadPart roadPart = (RoadPart)pm.GetObj(roadNames[0], spawnPos);
-            roadPart.SetHolders(true, ls.DifficultCurve);
+            roadPart.SetHolders(true, ls.DifficultCurve , level);
             return roadPart;
         }
         #endregion
@@ -38,6 +38,7 @@ namespace DevShirme.LevelModule
         }
         public override void Reload()
         {
+            generateRandomLevel();
         }
         public override void GameOver()
         {
@@ -66,9 +67,10 @@ namespace DevShirme.LevelModule
         #endregion
 
         #region Generator
-        [ContextMenu("Random Level Generate")]
         private void generateRandomLevel()
         {
+            int level = 1;
+
             clearOldLevel();
 
             LevelSettings ls = settings as LevelSettings;
@@ -82,7 +84,7 @@ namespace DevShirme.LevelModule
                     spawnPos = roadParts[i - 1].AttachPos.position;
                 }
 
-                RoadPart currentPart = getRandomRoadPart(spawnPos);
+                RoadPart currentPart = getRandomRoadPart(spawnPos, level);
 
                 if (!roadParts.Contains(currentPart))
                 {

@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using DevShirme.PlayerModule;
 public class Collectable : GameItem
 {
     #region Fields
@@ -31,14 +31,22 @@ public class Collectable : GameItem
         SetRotatorActivation(false);
         following = false;
     }
-    #endregion
-
-    #region Executes
     public override void OnPlayerContact(Vector3 contactPos)
     {
         base.OnPlayerContact(contactPos);
         SetRotatorActivation(true);
     }
+    #endregion
+
+    #region Receivers
+    public void OnPlayerContactToObstacle(PlayerAgent agent)
+    {
+        DespawnObj();
+        agent.OnObstacleContact -= OnPlayerContactToObstacle;
+    }
+    #endregion
+
+    #region Follow
     public void GetFollowDatas(Transform agent, Transform followPoint, float followSpeed)
     {
         this.playerAgent = agent;

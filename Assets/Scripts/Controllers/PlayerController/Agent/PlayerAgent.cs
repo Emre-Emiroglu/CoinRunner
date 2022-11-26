@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 using DevShirme.Utils;
+using System;
 
 namespace DevShirme.PlayerModule
 {
     public class PlayerAgent : MonoBehaviour
     {
+        public Action<PlayerAgent> OnObstacleContact;
         #region Fields
         [Header("Handlers")]
         [SerializeField] private MovementHandler movementHandler;
@@ -14,6 +16,7 @@ namespace DevShirme.PlayerModule
         [SerializeField] private Rotator rotator;
         [Header("Components")]
         [SerializeField] private Rigidbody rb;
+        [Header("Follow Fields")]
         [SerializeField] private Transform followPointParent;
         [SerializeField] private GameObject followPointPrefab;
         private List<GameObject> followPoints;
@@ -70,27 +73,40 @@ namespace DevShirme.PlayerModule
         #endregion
 
         #region Physics
+        private void collectableContact(Collider other)
+        {
+            Collectable collectable = other.GetComponentInParent<Collectable>();
+            if (!collectable.Following)
+            {
+                collectableCount++;
+
+                Transform followPoint = followPoints[collectableCount - 1].transform;
+                float followSpeed = playerSettings.FollowData.FollowSpeed - ((collectableCount - 1) * .33f);
+                followSpeed = followSpeed < 1f ? 1f : followSpeed;
+
+                collectable.OnPlayerContact(transform.position);
+                collectable.GetFollowDatas(transform, followPoint, followSpeed);
+                OnObstacleContact += collectable.OnPlayerContactToObstacle;
+                if (collectableCount % 10 == 0)
+                {
+                    createFollowPoints();
+                }
+            }
+        }
+        private void obstacleContact(Collider other)
+        {
+            collectableCount = 0;
+            OnObstacleContact?.Invoke(this);
+        }
         private void OnTriggerEnter(Collider other)
         {
             if (other.gameObject.CompareTag(Enums.GameItemType.Collectable.ToString()))
             {
-                Collectable collectable = other.GetComponentInParent<Collectable>();
-                if (!collectable.Following)
-                {
-                    collectableCount++;
-
-                    Transform followPoint = followPoints[collectableCount - 1].transform;
-                    float followSpeed = playerSettings.FollowData.FollowSpeed - ((collectableCount - 1) * .33f);
-                    followSpeed = followSpeed < 1f ? 1f : followSpeed;
-
-                    collectable.OnPlayerContact(transform.position);
-                    collectable.GetFollowDatas(transform, followPoint, followSpeed);
-
-                    if (collectableCount % 10 == 0)
-                    {
-                        createFollowPoints();
-                    }
-                }
+                collectableContact(other);
+            }
+            if (other.gameObject.CompareTag(Enums.GameItemType.Obstacle.ToString()))
+            {
+                obstacleContact(other);
             }
         }
         #endregion
