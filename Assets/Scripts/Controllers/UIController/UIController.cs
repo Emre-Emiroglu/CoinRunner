@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using DevShirme.Utils;
 
 namespace DevShirme.UIModule
 {
@@ -22,30 +23,30 @@ namespace DevShirme.UIModule
             {
                 panels[i].Initialize(panels[i].gameObject);
             }
-            transation("MainMenuPanel");
+            transation(Constants.MainMenuPanelTag);
         }
         public override void GameStart()
         {
-            transation("InGamePanel");
+            transation(Constants.InGamePanelTag);
         }
         public override void Reload()
         {
             viewContainer.Reload();
 
-            transation("MainMenuPanel");
+            transation(Constants.MainMenuPanelTag);
         }
         public override void GameOver()
         {
-            transation("EndGamePanel");
+            transation(Constants.EndGamePanelTag);
         }
         public override void GameFail()
         {
-            EndGamePanel endGamePanel = GetPanel("EndGamePanel") as EndGamePanel;
+            EndGamePanel endGamePanel = GetPanel(Constants.EndGamePanelTag) as EndGamePanel;
             endGamePanel.SetEndPanels(false);
         }
         public override void GameSuccess()
         {
-            EndGamePanel endGamePanel = GetPanel("EndGamePanel") as EndGamePanel;
+            EndGamePanel endGamePanel = GetPanel(Constants.EndGamePanelTag) as EndGamePanel;
             endGamePanel.SetEndPanels(true);
         }
         #endregion

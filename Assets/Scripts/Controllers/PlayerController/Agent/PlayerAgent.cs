@@ -46,6 +46,9 @@ namespace DevShirme.PlayerModule
                 Destroy(followPoints[i]);
             }
             followPoints.Clear();
+
+            transform.position = Vector3.zero;
+            transform.rotation = Quaternion.identity;
         }
         public void GameOver()
         {
