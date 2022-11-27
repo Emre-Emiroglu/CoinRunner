@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DevShirme.Utils;
 
 namespace DevShirme.DataModule
 {
@@ -14,13 +15,14 @@ namespace DevShirme.DataModule
         #region Executes
         public override void LoadData()
         {
-            Coin = PlayerPrefs.GetInt("Coin", 0);
-            Level = PlayerPrefs.GetInt("Level", 1);
+            Coin = PlayerPrefs.GetInt(Constants.PlayerDataCoin, 0);
+            Level = PlayerPrefs.GetInt(Constants.PlayerDataLevel, 1);
             PlayerPrefs.Save();
         }
         public override void SaveData()
         {
-            PlayerPrefs.SetInt("Coin", Coin);
+            PlayerPrefs.SetInt(Constants.PlayerDataCoin, Coin);
+            PlayerPrefs.SetInt(Constants.PlayerDataLevel, Level);
             PlayerPrefs.Save();
         }
         #endregion

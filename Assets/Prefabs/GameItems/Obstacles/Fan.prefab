@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1578547831891760180}
-  - component: {fileID: 81873098812867369}
+  - component: {fileID: 5938496319936468245}
   - component: {fileID: 7214819138493880319}
   m_Layer: 8
   m_Name: Fan
@@ -34,7 +34,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &81873098812867369
+--- !u!114 &5938496319936468245
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -43,7 +43,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1578547831891760183}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 757ddea76a128324d86fea404ac8fe9e, type: 3}
+  m_Script: {fileID: 11500000, guid: 1bc128f487766c54cb8547939fca6ce6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   objName: Fan

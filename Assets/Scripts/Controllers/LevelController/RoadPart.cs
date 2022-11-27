@@ -53,7 +53,11 @@ namespace DevShirme.LevelModule
             {
                 var shuffleList = Utilities.Shuffle(obstacleObjectHolders);
                 int count = (int)(shuffleList.Count * diffCurve.Evaluate(level * .01f));
-                shuffleList.ForEach(x => x.Activate());
+                count = count > shuffleList.Count ? shuffleList.Count : count;
+                for (int i = 0; i < count; i++)
+                {
+                    shuffleList[i].Activate();
+                }
             }
             else
             {

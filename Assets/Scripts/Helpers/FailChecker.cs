@@ -11,7 +11,7 @@ namespace DevShirme.Helpers
         #region Physics
         private void OnTriggerExit(Collider other)
         {
-            if (other.attachedRigidbody.gameObject.CompareTag(Constants.PlayerTag))
+            if (other.gameObject.CompareTag(Constants.PlayerTag))
             {
                 GameManager gm = DevShirmeCore.Instance.GetAManager(Enums.ManagerType.GameManager) as GameManager;
                 gm.GameOver();

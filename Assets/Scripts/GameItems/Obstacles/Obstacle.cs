@@ -12,16 +12,11 @@ public class Obstacle : GameItem
     public override void SpawnObj(Vector3 pos, bool useRotation, Quaternion rot, bool useScale, Vector3 scale, bool setParent = false, GameObject p = null)
     {
         base.SpawnObj(pos, useRotation, rot, useScale, scale, setParent, p);
-        SetRotatorActivation(true);
     }
     public override void DespawnObj()
     {
         base.DespawnObj();
-        SetRotatorActivation(false);
     }
-    #endregion
-
-    #region Executes
     public override void OnPlayerContact(Vector3 contactPos)
     {
         base.OnPlayerContact(contactPos);

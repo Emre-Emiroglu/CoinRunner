@@ -1,9 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using DevShirme.PoolModule;
 
-public class GameItem : PoolObject
+public class Collectable : GameItem
 {
     #region Core
     public override void initilaze()
@@ -18,6 +17,9 @@ public class GameItem : PoolObject
     {
         base.DespawnObj();
     }
-    public virtual void OnPlayerContact(Vector3 contactPos) { }
+    public override void OnPlayerContact(Vector3 contactPos)
+    {
+        base.OnPlayerContact(contactPos);
+    }
     #endregion
 }

@@ -7,15 +7,15 @@ using System;
 
 namespace DevShirme.PlayerModule
 {
-    public class PlayerAgent : MonoBehaviour
+    public class PlayerAgent : MonoBehaviour, IUseRotator
     {
         #region Fields
         public Action<PlayerAgent> OnObstacleContact;
         [Header("Handlers")]
         [SerializeField] private MovementHandler movementHandler;
         [SerializeField] private RotationHandler rotationHandler;
-        [SerializeField] private Rotator rotator;
         [Header("Components")]
+        [SerializeField] private Rotator rotator;
         [SerializeField] private Rigidbody rb;
         [Header("Follow Fields")]
         [SerializeField] private Transform followPointParent;
@@ -37,6 +37,7 @@ namespace DevShirme.PlayerModule
         public void GameStart()
         {
             createFollowPoints();
+            SetRotator(true);
         }
         public void Reload()
         {
@@ -52,6 +53,7 @@ namespace DevShirme.PlayerModule
         }
         public void GameOver()
         {
+            SetRotator(false);
         }
         public void GameSuccess()
         {
@@ -61,11 +63,17 @@ namespace DevShirme.PlayerModule
         }
         #endregion
 
+        #region Rotator
+        public void SetRotator(bool isActive)
+        {
+            rotator.IsActive = isActive;
+        }
+        #endregion
+
         #region Handlers
         public void Movement(Vector2 input)
         {
             movementHandler.Execute(input);
-            rotator.IsActive = true;
         }
         public void Rotation(Vector2 input)
         {
@@ -88,9 +96,9 @@ namespace DevShirme.PlayerModule
         #endregion
 
         #region Physics
-        private void collectableContact(Collider other)
+        private void coinContact(Collider other)
         {
-            Collectable collectable = other.GetComponentInParent<Collectable>();
+            Coin collectable = other.GetComponentInParent<Coin>();
             if (!collectable.Following)
             {
                 collectableCount++;
@@ -120,7 +128,7 @@ namespace DevShirme.PlayerModule
         {
             if (other.gameObject.CompareTag(Enums.GameItemType.Collectable.ToString()))
             {
-                collectableContact(other);
+                coinContact(other);
             }
             if (other.gameObject.CompareTag(Enums.GameItemType.Obstacle.ToString()))
             {

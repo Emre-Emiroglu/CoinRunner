@@ -4,6 +4,7 @@ using UnityEngine;
 using DevShirme.Core;
 using DevShirme.PoolModule;
 using DevShirme.Utils;
+using DevShirme.DataModule;
 
 namespace DevShirme.LevelModule
 {
@@ -69,7 +70,8 @@ namespace DevShirme.LevelModule
         #region Generator
         private void generateRandomLevel()
         {
-            int level = 1;
+            DataManager dm = DevShirmeCore.Instance.GetAManager(Enums.ManagerType.DataManager) as DataManager;
+            int level = dm.PlayerData.Level + 50;
 
             clearOldLevel();
 

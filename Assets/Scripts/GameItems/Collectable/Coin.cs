@@ -2,9 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DevShirme.PlayerModule;
-public class Collectable : GameItem
+
+public class Coin : Collectable, IUseRotator
 {
     #region Fields
+    [Header("Coin Fields")]
+    [SerializeField] private Rotator rotator;
     private Transform playerAgent;
     private Transform followPoint;
     private float followSpeed;
@@ -24,17 +27,18 @@ public class Collectable : GameItem
     {
         base.SpawnObj(pos, useRotation, rot, useScale, scale, setParent, p);
         following = false;
+        SetRotator(false);
     }
     public override void DespawnObj()
     {
         base.DespawnObj();
-        SetRotatorActivation(false);
         following = false;
+        SetRotator(false);
     }
     public override void OnPlayerContact(Vector3 contactPos)
     {
         base.OnPlayerContact(contactPos);
-        SetRotatorActivation(true);
+        SetRotator(true);
     }
     #endregion
 
@@ -66,6 +70,13 @@ public class Collectable : GameItem
     private void Update()
     {
         follow();
+    }
+    #endregion
+
+    #region Rotator
+    public void SetRotator(bool isActive)
+    {
+        rotator.IsActive = isActive;
     }
     #endregion
 }

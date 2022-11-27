@@ -10,5 +10,8 @@ namespace DevShirme.Utils
         public const string MainMenuPanelTag = "MainMenuPanel";
         public const string InGamePanelTag = "InGamePanel";
         public const string EndGamePanelTag = "EndGamePanel";
+        public const string PlayerDataCoin = "Coin";
+        public const string PlayerDataLevel = "Level";
+        public const string AxeSpeedMultiplier = "multiplier";
         }
 }
