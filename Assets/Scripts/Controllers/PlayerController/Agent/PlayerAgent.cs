@@ -8,7 +8,7 @@ using System;
 
 namespace DevShirme.PlayerModule
 {
-    public class PlayerAgent : MonoBehaviour, IUseRotator
+    public class PlayerAgent : MonoBehaviour, IUseRotator, IGameCycle
     {
         #region Fields
         public Action<PlayerAgent, BounceEffect> OnObstacleContact;
@@ -26,6 +26,8 @@ namespace DevShirme.PlayerModule
         private List<GameObject> followPoints;
         private PlayerSettings playerSettings;
         private int collectableCount;
+        private Transform finalPlatform;
+        private Coroutine finalReplaceAnim;
         #endregion
 
         #region Core
@@ -40,6 +42,9 @@ namespace DevShirme.PlayerModule
             followPoints = new List<GameObject>();
 
             mobility(false);
+        }
+        public void Initialize()
+        {
         }
         public void GameStart()
         {
@@ -99,7 +104,7 @@ namespace DevShirme.PlayerModule
         }
         #endregion
 
-        #region FollowPoints
+        #region Follow
         private void createFollowPoints(int count = 10)
         {
             int lastCount = followPoints.Count + 1;
@@ -124,7 +129,29 @@ namespace DevShirme.PlayerModule
                     followPoints[j + i].transform.localPosition = new Vector3(-.4f + (j * xDist), (i + 5) / 5 * -yDist, 0f);
                 }
             }
-            transform.position = new Vector3(transform.position.x, yDist * (rowCount), transform.position.z);
+
+            finalReplace(yDist, rowCount);
+        }
+        private void finalReplace(float yDist, int rowCount)
+        {
+            Vector3 targetPos = new Vector3(finalPlatform.position.x, yDist * (rowCount), transform.position.z);
+            if (finalReplaceAnim != null)
+            {
+                StopCoroutine(finalReplaceAnim);
+            }
+            finalReplaceAnim = StartCoroutine(finalReplaceAnimation(1f, targetPos));
+        }
+        private IEnumerator finalReplaceAnimation(float duration, Vector3 targetpos)
+        {
+            float t = 0f;
+            Vector3 orgPos = transform.position;
+            while (t < duration)
+            {
+                t += Time.deltaTime;
+                transform.position = Vector3.Lerp(orgPos, targetpos, t / duration);
+                yield return null;
+            }
+            transform.position = targetpos;
         }
         #endregion
 
@@ -148,7 +175,7 @@ namespace DevShirme.PlayerModule
                     createFollowPoints();
                 }
 
-                ScoreHandler.SetCurrentScore(1);
+                ScoreHandler.SetCurrentScore(1, true, false);
 
                 bounceEffect.AddNewObj(collectable);
                 bounceEffect.StartBounceEffect();
@@ -158,7 +185,7 @@ namespace DevShirme.PlayerModule
         {
             collectableCount = 0;
             OnObstacleContact?.Invoke(this, bounceEffect);
-            ScoreHandler.SetCurrentScore(-ScoreHandler.CurrentScore);
+            ScoreHandler.SetCurrentScore(-ScoreHandler.CurrentScore, true, false);
         }
         private void OnTriggerEnter(Collider other)
         {
@@ -170,11 +197,6 @@ namespace DevShirme.PlayerModule
             {
                 obstacleContact(other);
             }
-            if (other.gameObject.CompareTag(Constants.FinalPlatformTag))
-            {
-                GameManager gm = DevShirmeCore.Instance.GetAManager(Enums.ManagerType.GameManager) as GameManager;
-                gm.GameSuccess();
-            }
             if (other.gameObject.CompareTag(Constants.PlatformTag))
             {
                 Platform platform = other.gameObject.GetComponentInParent<Platform>();
@@ -183,6 +205,16 @@ namespace DevShirme.PlayerModule
 
                 GameManager gm = DevShirmeCore.Instance.GetAManager(Enums.ManagerType.GameManager) as GameManager;
                 gm.GameOver();
+            }
+        }
+        private void OnTriggerExit(Collider other)
+        {
+            if (other.gameObject.CompareTag(Constants.FinalPlatformTag))
+            {
+                finalPlatform = other.gameObject.transform;
+
+                GameManager gm = DevShirmeCore.Instance.GetAManager(Enums.ManagerType.GameManager) as GameManager;
+                gm.GameSuccess();
             }
         }
         #endregion

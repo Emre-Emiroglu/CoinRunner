@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using DevShirme.Utils;
-using DevShirme.Core;
 
 public class Platform : MonoBehaviour
 {

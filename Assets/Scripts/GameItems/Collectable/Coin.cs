@@ -113,7 +113,10 @@ public class Coin : Collectable, IUseRotator, IBouncable
         {
             StopCoroutine(bounce);
         }
-        bounce = StartCoroutine(bounceAnim(targetScale, duration));
+        if (gameObject.activeInHierarchy)
+        {
+            bounce = StartCoroutine(bounceAnim(targetScale, duration));
+        }
     }
     public IEnumerator bounceAnim(float targetScale, float duration)
     {
