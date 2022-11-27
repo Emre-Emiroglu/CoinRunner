@@ -50,10 +50,13 @@ public class ObjectHolder : MonoBehaviour
                 switch (obstacleType)
                 {
                     case Enums.ObstacleType.Axe:
-                        Gizmos.color = Color.red;
+                        Gizmos.color = Color.blue;
                         break;
                     case Enums.ObstacleType.Fan:
                         Gizmos.color = Color.magenta;
+                        break;
+                    case Enums.ObstacleType.Gate:
+                        Gizmos.color = Color.red;
                         break;
                 }
                 break;

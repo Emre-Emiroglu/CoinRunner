@@ -7,17 +7,6 @@ namespace DevShirme.Utils
             DestroyNewObj,
             DestroyOldObj
         }
-        public enum MovementType
-        {
-            Transform,
-            Rigidbody,
-        }
-        public enum TriggerBehavior : int
-        {
-            OnTriggerEnter = 1,
-            OnTriggerExit = 2,
-            Both = 3
-        }
         public enum ManagerType: int
         {
             DataManager = 0,
@@ -34,7 +23,8 @@ namespace DevShirme.Utils
         {
             Axe = 0,
             Fan = 1,
-            Count = 2
+            Gate = 2,
+            Count = 3
         }
     }
 }
