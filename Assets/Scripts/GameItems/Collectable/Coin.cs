@@ -119,7 +119,6 @@ public class Coin : Collectable, IUseRotator, IBouncable
             t += Time.deltaTime;
             float scale = Mathf.PingPong(t / duration, targetScale - orgScale) + orgScale;
             transform.localScale = new Vector3(scale, scale, scale);
-            Debug.Log(scale);
             yield return null;
         }
     }
