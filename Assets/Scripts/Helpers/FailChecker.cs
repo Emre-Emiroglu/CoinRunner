@@ -17,6 +17,11 @@ namespace DevShirme.Helpers
                 gm.GameOver();
                 gm.GameFail();
             }
+            if (other.gameObject.CompareTag(Constants.CollectableTag))
+            {
+                Collectable c = other.GetComponentInParent<Collectable>();
+                c.DespawnObj();
+            }
         }
         #endregion
     }

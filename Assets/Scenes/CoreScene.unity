@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 1067200166}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18154618, g: 0.22718845, b: 0.30740732, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -4879,7 +4879,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 925680276230952106, guid: c193f79e58823b247b6a83e87f4c1349, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -5
       objectReference: {fileID: 0}
     - target: {fileID: 925680276230952106, guid: c193f79e58823b247b6a83e87f4c1349, type: 3}
       propertyPath: m_LocalPosition.z
@@ -4973,18 +4973,6 @@ PrefabInstance:
     - target: {fileID: 3873421297433907497, guid: 71bd8284b8377774f8bba4f423fd527d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3873421297433907499, guid: 71bd8284b8377774f8bba4f423fd527d, type: 3}
-      propertyPath: OnCollectableCollect.m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3873421297433907499, guid: 71bd8284b8377774f8bba4f423fd527d, type: 3}
-      propertyPath: OnCollectableCollect.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3873421297433907499, guid: 71bd8284b8377774f8bba4f423fd527d, type: 3}
-      propertyPath: OnCollectableCollect.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 71bd8284b8377774f8bba4f423fd527d, type: 3}

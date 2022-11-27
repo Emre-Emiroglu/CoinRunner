@@ -8,6 +8,7 @@ public class Coin : Collectable, IUseRotator
     #region Fields
     [Header("Coin Fields")]
     [SerializeField] private Rotator rotator;
+    private Rigidbody rb;
     private Transform playerAgent;
     private Transform followPoint;
     private float followSpeed;
@@ -22,18 +23,21 @@ public class Coin : Collectable, IUseRotator
     public override void initilaze()
     {
         base.initilaze();
+        rb = GetComponent<Rigidbody>();
     }
     public override void SpawnObj(Vector3 pos, bool useRotation, Quaternion rot, bool useScale, Vector3 scale, bool setParent = false, GameObject p = null)
     {
         base.SpawnObj(pos, useRotation, rot, useScale, scale, setParent, p);
         following = false;
         SetRotator(false);
+        rb.isKinematic = true;
     }
     public override void DespawnObj()
     {
         base.DespawnObj();
         following = false;
         SetRotator(false);
+        rb.isKinematic = true;
     }
     public override void OnPlayerContact(Vector3 contactPos)
     {
@@ -45,8 +49,15 @@ public class Coin : Collectable, IUseRotator
     #region Receivers
     public void OnPlayerContactToObstacle(PlayerAgent agent)
     {
-        DespawnObj();
+        following = false;
+        seperateAnimation();
         agent.OnObstacleContact -= OnPlayerContactToObstacle;
+    }
+    private void seperateAnimation()
+    {
+        rb.isKinematic = false;
+        Vector3 expPos = new Vector3(transform.position.x + Random.Range(-.1f, .1f), transform.position.y - .1f, transform.position.z - .1f);
+        rb.AddExplosionForce(Random.Range(8f, 12f), expPos, .5f, 1f, ForceMode.VelocityChange);
     }
     #endregion
 

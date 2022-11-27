@@ -33,11 +33,13 @@ namespace DevShirme.PlayerModule
             rotationHandler.Initialize(this.playerSettings);
             collectableCount = 0;
             followPoints = new List<GameObject>();
+            rb.isKinematic = true;
         }
         public void GameStart()
         {
             createFollowPoints();
             SetRotator(true);
+            rb.isKinematic = false;
         }
         public void Reload()
         {
@@ -54,6 +56,7 @@ namespace DevShirme.PlayerModule
         public void GameOver()
         {
             SetRotator(false);
+            rb.isKinematic = true;
         }
         public void GameSuccess()
         {
