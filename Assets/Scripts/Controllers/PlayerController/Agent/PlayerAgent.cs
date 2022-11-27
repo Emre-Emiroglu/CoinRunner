@@ -10,11 +10,12 @@ namespace DevShirme.PlayerModule
     public class PlayerAgent : MonoBehaviour, IUseRotator
     {
         #region Fields
-        public Action<PlayerAgent> OnObstacleContact;
+        public Action<PlayerAgent, BounceEffect> OnObstacleContact;
         [Header("Handlers")]
         [SerializeField] private MovementHandler movementHandler;
         [SerializeField] private RotationHandler rotationHandler;
         [Header("Components")]
+        [SerializeField] private BounceEffect bounceEffect;
         [SerializeField] private Rotator rotator;
         [SerializeField] private Rigidbody rb;
         [Header("Follow Fields")]
@@ -34,6 +35,7 @@ namespace DevShirme.PlayerModule
             collectableCount = 0;
             followPoints = new List<GameObject>();
             rb.isKinematic = true;
+            bounceEffect.Initialize();
         }
         public void GameStart()
         {
@@ -52,6 +54,8 @@ namespace DevShirme.PlayerModule
 
             transform.position = Vector3.zero;
             transform.rotation = Quaternion.identity;
+
+            bounceEffect.ClearObjects();
         }
         public void GameOver()
         {
@@ -119,12 +123,15 @@ namespace DevShirme.PlayerModule
                 }
 
                 ScoreHandler.SetCurrentScore(1);
+
+                bounceEffect.AddNewObj(collectable);
+                bounceEffect.StartBounceEffect();
             }
         }
         private void obstacleContact(Collider other)
         {
             collectableCount = 0;
-            OnObstacleContact?.Invoke(this);
+            OnObstacleContact?.Invoke(this, bounceEffect);
             ScoreHandler.SetCurrentScore(-ScoreHandler.CurrentScore);
         }
         private void OnTriggerEnter(Collider other)

@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DevShirme.PlayerModule;
+using DevShirme.Helpers;
 
-public class Coin : Collectable, IUseRotator
+public class Coin : Collectable, IUseRotator, IBouncable
 {
     #region Fields
     [Header("Coin Fields")]
@@ -13,6 +14,7 @@ public class Coin : Collectable, IUseRotator
     private Transform followPoint;
     private float followSpeed;
     private bool following;
+    private Coroutine bounce;
     #endregion
 
     #region Getters
@@ -47,10 +49,18 @@ public class Coin : Collectable, IUseRotator
     #endregion
 
     #region Receivers
-    public void OnPlayerContactToObstacle(PlayerAgent agent)
+    public void OnPlayerContactToObstacle(PlayerAgent agent, BounceEffect bounceEffect)
     {
         following = false;
+
         seperateAnimation();
+
+        if (bounce != null)
+        {
+            StopCoroutine(bounce);
+        }
+        bounceEffect.RemoveObj(this);
+
         agent.OnObstacleContact -= OnPlayerContactToObstacle;
     }
     private void seperateAnimation()
@@ -88,6 +98,30 @@ public class Coin : Collectable, IUseRotator
     public void SetRotator(bool isActive)
     {
         rotator.IsActive = isActive;
+    }
+    #endregion
+
+    #region Bounce
+    public void BounceAnimation(float targetScale, float duration)
+    {
+        if (bounce != null)
+        {
+            StopCoroutine(bounce);
+        }
+        bounce = StartCoroutine(bounceAnim(targetScale, duration));
+    }
+    public IEnumerator bounceAnim(float targetScale, float duration)
+    {
+        float t = 0f;
+        float orgScale = 1f;
+        while (t < duration)
+        {
+            t += Time.deltaTime;
+            float scale = Mathf.PingPong(t / duration, targetScale - orgScale) + orgScale;
+            transform.localScale = new Vector3(scale, scale, scale);
+            Debug.Log(scale);
+            yield return null;
+        }
     }
     #endregion
 }

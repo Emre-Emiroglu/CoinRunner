@@ -252,6 +252,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movementHandler: {fileID: 19234192515202376}
   rotationHandler: {fileID: 3477363520792005901}
+  bounceEffect: {fileID: 0}
   rotator: {fileID: 12373402}
   rb: {fileID: 3873421297433907496}
   followPointParent: {fileID: 1714942470}
