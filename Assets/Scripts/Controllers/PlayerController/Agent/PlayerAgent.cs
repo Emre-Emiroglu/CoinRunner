@@ -177,6 +177,10 @@ namespace DevShirme.PlayerModule
             }
             if (other.gameObject.CompareTag(Constants.PlatformTag))
             {
+                Platform platform = other.gameObject.GetComponentInParent<Platform>();
+                int amount = (int)(ScoreHandler.CurrentScore * platform.XValue);
+                ScoreHandler.SetCurrentScore(amount);
+
                 GameManager gm = DevShirmeCore.Instance.GetAManager(Enums.ManagerType.GameManager) as GameManager;
                 gm.GameOver();
             }

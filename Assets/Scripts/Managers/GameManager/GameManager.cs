@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DevShirme.Helpers;
+using DevShirme.DataModule;
 
 namespace DevShirme.Core
 {
@@ -56,6 +57,10 @@ namespace DevShirme.Core
             {
                 controllers[i].GameSuccess();
             }
+
+            DataManager dm = DevShirmeCore.Instance.GetAManager(Utils.Enums.ManagerType.DataManager) as DataManager;
+            dm.PlayerData.Level++;
+            dm.PlayerData.SaveData();
         }
         #endregion
     }

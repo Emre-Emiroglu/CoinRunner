@@ -10,6 +10,11 @@ public class Platform : MonoBehaviour
     #region Fields
     [SerializeField] private MeshRenderer meshRenderer;
     [SerializeField] private TMP_Text xText;
+    private float xValue;
+    #endregion
+
+    #region Getters
+    public float XValue => xValue;
     #endregion
 
     #region Core
@@ -17,6 +22,7 @@ public class Platform : MonoBehaviour
     {
         transform.localPosition = localPos;
         meshRenderer.sharedMaterial = mat;
+        this.xValue = xValue;
         xText.SetText("X" + xValue);
     }
     #endregion
