@@ -2752,6 +2752,7 @@ Transform:
   - {fileID: 1921357558}
   - {fileID: 1577885832}
   - {fileID: 1918896733}
+  - {fileID: 1602275211}
   m_Father: {fileID: 1314554428}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2774,6 +2775,7 @@ MonoBehaviour:
   - {fileID: 1921357559}
   - {fileID: 1577885833}
   - {fileID: 1918896734}
+  - {fileID: 1602275212}
 --- !u!1 &1081648384
 GameObject:
   m_ObjectHideFlags: 0
@@ -4014,6 +4016,54 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ObjPref: {fileID: 1578547831891760183, guid: 0eba91ec56aed814e9db74bf7f54452e, type: 3}
   poolName: Axe
+  initSize: 10
+  maxPoolSize: 100
+  items: []
+--- !u!1 &1602275210
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1602275211}
+  - component: {fileID: 1602275212}
+  m_Layer: 0
+  m_Name: GatePool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1602275211
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1602275210}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1077419661}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1602275212
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1602275210}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6a35d833a2d27246b6d381e0b646e99, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObjPref: {fileID: 1578547831891760183, guid: 738776313465f584aa162e5048be1ce0, type: 3}
+  poolName: Gate
   initSize: 10
   maxPoolSize: 100
   items: []
