@@ -46,6 +46,11 @@ public class Coin : Collectable, IUseRotator, IBouncable
         base.OnPlayerContact(contactPos);
         SetRotator(true);
     }
+    public void Stop()
+    {
+        rb.isKinematic = true;
+        following = false;
+    }
     #endregion
 
     #region Receivers

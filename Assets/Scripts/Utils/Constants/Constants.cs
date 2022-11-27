@@ -8,6 +8,8 @@ namespace DevShirme.Utils
         {
         public const string PlayerTag = "Player";
         public const string CollectableTag = "Collectable";
+        public const string FinalPlatformTag = "FinalPlatform";
+        public const string PlatformTag = "Platform";
         public const string MainMenuPanelTag = "MainMenuPanel";
         public const string InGamePanelTag = "InGamePanel";
         public const string EndGamePanelTag = "EndGamePanel";

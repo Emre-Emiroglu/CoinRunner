@@ -11,6 +11,7 @@ namespace DevShirme.PlayerModule
         [Header("Player Controller Settings")]
         [SerializeField] private PlayerAgent agent;
         private bool isActive;
+        private bool isGameOver;
         private InputController inputController;
         private Vector2 inputDir;
         #endregion
@@ -29,7 +30,9 @@ namespace DevShirme.PlayerModule
         }
         public override void GameStart()
         {
+            inputController.RemoveInputs();
             isActive = true;
+            isGameOver = false;
             agent.GameStart();
         }
         public override void Reload()
@@ -39,6 +42,7 @@ namespace DevShirme.PlayerModule
         public override void GameOver()
         {
             isActive = false;
+            isGameOver = true;
             agent.GameOver();
         }
         public override void GameFail()
@@ -47,6 +51,7 @@ namespace DevShirme.PlayerModule
         }
         public override void GameSuccess()
         {
+            isGameOver = true;
             agent.GameSuccess();
         }
         #endregion
@@ -57,7 +62,7 @@ namespace DevShirme.PlayerModule
             if (isActive)
             {
                 inputController.Update();
-                inputDir.x = inputController.DeltaPos.x * Time.deltaTime;
+                inputDir.x = isGameOver == true ? 0f : inputController.DeltaPos.x * Time.deltaTime;
                 inputDir.y = 0f;
 
                 agent.Rotation(inputDir);

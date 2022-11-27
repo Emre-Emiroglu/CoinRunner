@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DevShirme.Utils;
 using DevShirme.Helpers;
+using DevShirme.Core;
 using System;
 
 namespace DevShirme.PlayerModule
@@ -11,16 +12,17 @@ namespace DevShirme.PlayerModule
     {
         #region Fields
         public Action<PlayerAgent, BounceEffect> OnObstacleContact;
+        [Header("Components")]
+        [SerializeField] private Rotator rotator;
+        [SerializeField] private Rigidbody rb;
         [Header("Handlers")]
         [SerializeField] private MovementHandler movementHandler;
         [SerializeField] private RotationHandler rotationHandler;
-        [Header("Components")]
-        [SerializeField] private BounceEffect bounceEffect;
-        [SerializeField] private Rotator rotator;
-        [SerializeField] private Rigidbody rb;
         [Header("Follow Fields")]
         [SerializeField] private Transform followPointParent;
         [SerializeField] private GameObject followPointPrefab;
+        [Header("Bounce")]
+        [SerializeField] private BounceEffect bounceEffect;
         private List<GameObject> followPoints;
         private PlayerSettings playerSettings;
         private int collectableCount;
@@ -32,16 +34,17 @@ namespace DevShirme.PlayerModule
             this.playerSettings = playerSettings;
             movementHandler.Initialize(this.playerSettings);
             rotationHandler.Initialize(this.playerSettings);
+            bounceEffect.Initialize();
+
             collectableCount = 0;
             followPoints = new List<GameObject>();
-            rb.isKinematic = true;
-            bounceEffect.Initialize();
+
+            mobility(false);
         }
         public void GameStart()
         {
             createFollowPoints();
-            SetRotator(true);
-            rb.isKinematic = false;
+            mobility(true);
         }
         public void Reload()
         {
@@ -59,14 +62,22 @@ namespace DevShirme.PlayerModule
         }
         public void GameOver()
         {
-            SetRotator(false);
-            rb.isKinematic = true;
+            mobility(false);
         }
         public void GameSuccess()
         {
+            transform.rotation = Quaternion.identity;
+            mobility(false);
+            pyramidFormation();
         }
         public void GameFail()
         {
+        }
+        private void mobility(bool isActive)
+        {
+            SetRotator(isActive);
+            rb.isKinematic = !isActive;
+            rb.useGravity = isActive;
         }
         #endregion
 
@@ -88,7 +99,7 @@ namespace DevShirme.PlayerModule
         }
         #endregion
 
-        #region CreateFollowPoints
+        #region FollowPoints
         private void createFollowPoints(int count = 10)
         {
             int lastCount = followPoints.Count + 1;
@@ -99,6 +110,21 @@ namespace DevShirme.PlayerModule
                 followPoints.Add(obj);
                 obj.transform.localPosition += Vector3.back * playerSettings.FollowData.FollowDist * (lastCount + i);
             }
+        }
+        private void pyramidFormation()
+        {
+            float yDist = 1f;
+            float xDist = .2f;
+            int rowCount = 0;
+            for (int i = 0; i < collectableCount; i += 5)
+            {
+                rowCount++;
+                for (int j = 0; j < 5; j++)
+                {
+                    followPoints[j + i].transform.localPosition = new Vector3(-.4f + (j * xDist), (i + 5) / 5 * -yDist, 0f);
+                }
+            }
+            transform.position = new Vector3(transform.position.x, yDist * (rowCount), transform.position.z);
         }
         #endregion
 
@@ -143,6 +169,16 @@ namespace DevShirme.PlayerModule
             if (other.gameObject.CompareTag(Enums.GameItemType.Obstacle.ToString()))
             {
                 obstacleContact(other);
+            }
+            if (other.gameObject.CompareTag(Constants.FinalPlatformTag))
+            {
+                GameManager gm = DevShirmeCore.Instance.GetAManager(Enums.ManagerType.GameManager) as GameManager;
+                gm.GameSuccess();
+            }
+            if (other.gameObject.CompareTag(Constants.PlatformTag))
+            {
+                GameManager gm = DevShirmeCore.Instance.GetAManager(Enums.ManagerType.GameManager) as GameManager;
+                gm.GameOver();
             }
         }
         #endregion

@@ -26,5 +26,10 @@ namespace DevShirme.Utils
             Gate = 2,
             Count = 3
         }
+        public enum Cameras : int
+        {
+            Follow = 0,
+            Success = 1
+        }
     }
 }

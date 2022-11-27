@@ -4,11 +4,11 @@ using UnityEngine;
 
 namespace DevShirme.Helpers
 {
-    public class BounceEffect : MonoBehaviour
+    public class BounceEffect: MonoBehaviour
     {
         #region Fields
         [Header("Bounce Settings")]
-        [SerializeField] private float bounceTargetScale;
+        [SerializeField] private float bounceTargetScale = 1.25f;
         [SerializeField] private float bounceDelay = .1f;
         [SerializeField] private float bounceAnimDuration = .5f;
         private List<IBouncable> objects;

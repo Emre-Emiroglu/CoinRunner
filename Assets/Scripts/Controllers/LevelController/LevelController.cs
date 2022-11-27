@@ -11,6 +11,7 @@ namespace DevShirme.LevelModule
     public class LevelController : DevShirmeController
     {
         #region Fields
+        [SerializeField] private FinalPlatform finalPlatform;
         [SerializeField] private List< string> roadNames;
         private List<RoadPart> roadParts;
         private LevelSettings ls;
@@ -71,7 +72,7 @@ namespace DevShirme.LevelModule
         private void generateRandomLevel()
         {
             DataManager dm = DevShirmeCore.Instance.GetAManager(Enums.ManagerType.DataManager) as DataManager;
-            int level = dm.PlayerData.Level + 50;
+            int level = dm.PlayerData.Level;
 
             clearOldLevel();
 
@@ -93,6 +94,8 @@ namespace DevShirme.LevelModule
                     roadParts.Add(currentPart);
                 }
             }
+
+            finalPlatform.Initialize(roadParts[roadParts.Count - 1].AttachPos.position);
         }
         #endregion
     }

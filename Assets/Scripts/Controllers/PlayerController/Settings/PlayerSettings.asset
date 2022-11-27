@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: PlayerSettings
   m_EditorClassIdentifier: 
   movementData:
-    movementSpeed: 3
+    movementSpeed: 4
   rotationData:
     rotationSpeed: 100
     rotationSmoothFactor: 50
-    minYRot: -90
-    maxYRot: 90
+    minYRot: -120
+    maxYRot: 120
   followData:
     followDist: 0.61
     followSpeed: 15
